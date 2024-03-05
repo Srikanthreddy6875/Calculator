@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator app</title>
     <link rel="stylesheet" href="./cal.css">
-    <script src="./cal.js"></script>
-
 </head>
 <body>
     <div class="container">
@@ -14,39 +12,83 @@
             <form>
                 <div><h2>Calculator App</h2></div>
                 <div class="display">
-                    <input type="text" name="display" style="width: 300px;">
+                    <input type="text" name="display" style="width: 350px;" id="display">
                 </div>
                 <div>
-                    <input type="button" value="AC" onclick="display.value =''">
-                    <input type="button" value="DE" onclick="display.value = display.value.toString().slice(0,-1)">
-                    <input type="button" value="."  onclick="display.value +='.'">
-                    <input type="button" value="/"  onclick="display.value +='/'">
+                    <input type="button" value="AC" onclick="clearDisplay()">
+                    <input type="button" value="DE" onclick="handleDelete()">
+                    <input type="button" value="."  onclick="handleButtonClick('.')">
+                    <input type="button" value="/"  onclick="appendToDisplay('/')">
                 </div>
                 <div>
-                    <input type="button" value="7" onclick="display.value +='7'">
-                    <input type="button" value="8" onclick="display.value +='8'">
-                    <input type="button" value="9" onclick="display.value +='9'">
-                    <input type="button" value="*" onclick="display.value +='*'">
+                    <input type="button" value="7" onclick="handleButtonClick('7')">
+                    <input type="button" value="8" onclick="handleButtonClick('8')">
+                    <input type="button" value="9" onclick="handleButtonClick('9')">
+                    <input type="button" value="*" onclick="appendToDisplay('*')">
                 </div>
                 <div>
-                    <input type="button" value="4" onclick="display.value +='4'">
-                    <input type="button" value="5" onclick="display.value +='5'">
-                    <input type="button" value="6" onclick="display.value +='6'">
-                    <input type="button" value="-" onclick="display.value +='-'">
+                    <input type="button" value="4" onclick="handleButtonClick('4')">
+                    <input type="button" value="5" onclick="handleButtonClick('5')">
+                    <input type="button" value="6" onclick="handleButtonClick('6')">
+                    <input type="button" value="-" onclick="appendToDisplay('-')">
                 </div>
                 <div>
-                    <input type="button" value="1" onclick="display.value +='1'">
-                    <input type="button" value="2" onclick="display.value +='2'">
-                    <input type="button" value="3" onclick="display.value +='3'" >
-                    <input type="button" value="+" onclick="display.value +='+'">
+                    <input type="button" value="1" onclick="handleButtonClick('1')">
+                    <input type="button" value="2" onclick="handleButtonClick('2')">
+                    <input type="button" value="3" onclick="handleButtonClick('3')">
+                    <input type="button" value="+" onclick="appendToDisplay('+')">
                 </div>
                 <div>
-                    <input type="button" value="00" onclick="display.value +='00'">
-                    <input type="button" value="0" onclick="display.value +='0'">
-                    <input type="button" value="=" onclick=" display.value =eval(display.value)" class="equal">
+                    <input type="button" value="00" onclick="handleButtonClick('00')">
+                    <input type="button" value="0" onclick="handleButtonClick('0')">
+                    <input type="button" value="=" onclick="calculate()" class="equal">
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        let displayValue = '';
+        let decimalAllowed = true;
+    
+        function appendToDisplay(value) {
+            displayValue += value;
+            document.getElementById('display').value = displayValue;
+        }
+    
+        function clearDisplay() {
+            displayValue = '';
+            decimalAllowed = true;
+            document.getElementById('display').value = '';
+        }
+    
+        function calculate() {
+            try {
+                displayValue = eval(displayValue);
+                document.getElementById('display').value = displayValue;
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+            decimalAllowed = true;
+        }
+    
+        function handleButtonClick(value) {
+            if (value === '.') {
+                if (decimalAllowed) {
+                    appendToDisplay(value);
+                    decimalAllowed = false;
+                }
+            } else {
+                appendToDisplay(value);
+                // Allow decimal after adding a digit
+                decimalAllowed = true;
+            }
+        }
+
+        function handleDelete() {
+            // Remove the last character from displayValue
+            document.getElementById('display').value = displayValue;
+            displayValue = displayValue.slice(0, -1);   
+        }
+    </script>
 </body>
 </html>

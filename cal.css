@@ -24,7 +24,7 @@
     width: 60px;
     height: 60px;
     border-radius: 10px;
-    box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1);
+    box-shadow: -8px -8px 15px rgba(0, 0, 0, 0.1);
     background: transparent;
     font-size: 20px;
     color: #fff;
@@ -52,5 +52,4 @@ form input.equal{
     align-items: center;
     justify-content: center;
     color: #fff;
-    text-shadow: 0 0 3px #FF0000;
 }
