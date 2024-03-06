@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator app</title>
     <link rel="stylesheet" href="./cal.css">
+    <script src="./cal.js"></script>
 </head>
 <body>
     <div class="container">
@@ -12,12 +13,12 @@
             <form>
                 <div><h2>Calculator App</h2></div>
                 <div class="display">
-                    <input type="text" name="display" style="width: 350px;" id="display">
+                    <input type="text" name="display" style="width: 350px;" id="display" >
                 </div>
                 <div>
                     <input type="button" value="AC" onclick="clearDisplay()">
                     <input type="button" value="DE" onclick="handleDelete()">
-                    <input type="button" value="."  onclick="handleButtonClick('.')">
+                    <input type="button" value="."  onclick="handleDecimal()">
                     <input type="button" value="/"  onclick="appendToDisplay('/')">
                 </div>
                 <div>
@@ -46,49 +47,5 @@
             </form>
         </div>
     </div>
-    <script>
-        let displayValue = '';
-        let decimalAllowed = true;
-    
-        function appendToDisplay(value) {
-            displayValue += value;
-            document.getElementById('display').value = displayValue;
-        }
-    
-        function clearDisplay() {
-            displayValue = '';
-            decimalAllowed = true;
-            document.getElementById('display').value = '';
-        }
-    
-        function calculate() {
-            try {
-                displayValue = eval(displayValue);
-                document.getElementById('display').value = displayValue;
-            } catch (error) {
-                document.getElementById('display').value = 'Error';
-            }
-            decimalAllowed = true;
-        }
-    
-        function handleButtonClick(value) {
-            if (value === '.') {
-                if (decimalAllowed) {
-                    appendToDisplay(value);
-                    decimalAllowed = false;
-                }
-            } else {
-                appendToDisplay(value);
-                // Allow decimal after adding a digit
-                decimalAllowed = true;
-            }
-        }
-
-        function handleDelete() {
-            // Remove the last character from displayValue
-            document.getElementById('display').value = displayValue;
-            displayValue = displayValue.slice(0, -1);   
-        }
-    </script>
 </body>
 </html>
